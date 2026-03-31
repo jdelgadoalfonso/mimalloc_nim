@@ -72,17 +72,21 @@ else:
   {.passC: "-fno-builtin-malloc".}
   when defined(windows):
     {.passL: "-lpsapi -ladvapi32 -lbcrypt".}
+  elif defined(linux):
+    {.passL: "-pthread -lrt -latomic".} # or make rt/atomic conditional
   else:
-    {.passL: "-pthread -lrt -latomic".}
+    {.passL: "-pthread".}
 
 const
-  mimallocStatic = r"$1/mimalloc/src/static.c"
-  mimallocIncludePath = r"$1/mimalloc/include"
+  mimallocStatic = r"/home/jose/workspace/mimalloc_nim/src/mimalloc/src/static.c"
+  mimallocIncludePath = r"/home/jose/workspace/mimalloc_nim/src/mimalloc/include"
 
 {.passC: "-I" & mimallocIncludePath.}
-# Compile mimalloc as C++ when using UBSan (matching CMake's MI_USE_CXX behavior)
-# force C++ compilation with msvc or clang-cl to use modern C++ atomics
-when defined(mimallocUbsan) or defined(vcc) or defined(icc) or defined(clangcl):
+# Compile mimalloc as C++ where required.
+# MSVC uses `/TP` instead of GCC/Clang's `-x c++`.
+when defined(vcc):
+  {.compile(mimallocStatic, "/TP").}
+elif defined(mimallocUbsan) or defined(icc) or defined(clangcl):
   {.compile(mimallocStatic, "-x c++").}
   {.link: "-lstdc++".}
 else:

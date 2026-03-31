@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.3.7"
+version       = "0.3.11"
 author        = "Antonis Geralis"
 description   = "A drop-in solution to use mimalloc in Nim"
 license       = "MIT"
@@ -22,8 +22,8 @@ proc substituteInFile(filename, replacement: string) =
 
 proc editMimallocConsts(dir: string) =
   withDir(dir):
-    substituteInFile("mimalloc/config.nim", dir)
-    substituteInFile("patchedstd/mimalloc.nim", dir)
+    substituteInFile("src/mimalloc/config.nim", dir)
+    substituteInFile("src/patchedstd/mimalloc.nim", dir)
 
 task localInstall, "Install on your local workspace":
   # Works with atlas
