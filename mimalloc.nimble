@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.3.12"
+version       = "0.3.13"
 author        = "Antonis Geralis"
 description   = "A drop-in solution to use mimalloc in Nim"
 license       = "MIT"
