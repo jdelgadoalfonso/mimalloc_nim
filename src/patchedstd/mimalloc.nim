@@ -78,8 +78,8 @@ else:
     {.passL: "-pthread".}
 
 const
-  mimallocStatic = r"/home/jose/workspace/mimalloc_nim/src/mimalloc/src/static.c"
-  mimallocIncludePath = r"/home/jose/workspace/mimalloc_nim/src/mimalloc/include"
+  mimallocStatic = r"$1/mimalloc/src/static.c"
+  mimallocIncludePath = r"$1/mimalloc/include"
 
 {.passC: "-I" & mimallocIncludePath.}
 # Compile mimalloc as C++ where required.
