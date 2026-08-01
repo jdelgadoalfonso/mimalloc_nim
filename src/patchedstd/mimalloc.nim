@@ -185,8 +185,6 @@ when not defined(gcOrc):
   proc GC_enableMarkAndSweep() = discard
   proc GC_disableMarkAndSweep() = discard
 
-proc GC_setStrategy(strategy: GC_Strategy) = discard
-
 when defined(debug):
   proc readStats(): MiStatsPrefix =
     var s: MiStatsPrefix
